@@ -1,13 +1,17 @@
-package com.example.profile;
+package com.example.profile.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.profile.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,5 +67,14 @@ public class BiographyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_biography, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        txtName = view.findViewById(R.id.title_txt);
+        txtBiography = view.findViewById(R.id.txt_description);
+        txtName.setText(mParam1);
+        txtBiography.setText(mParam2);
     }
 }

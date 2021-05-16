@@ -1,15 +1,15 @@
 package com.example.profile;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.profile.fragments.HomeFragment;
+import com.example.profile.fragments.ListFragment;
+import com.example.profile.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.navigation_home:
                         manager.beginTransaction().replace(R.id.container_main, HomeFragment.newInstance("" , "")).commit();
+                        Toast.makeText(MainActivity.this,"Оставайся дома", Toast.LENGTH_LONG).show();
                         item.setChecked(true);
                         break;
                     case R.id.navigation_list:

@@ -1,5 +1,4 @@
-package com.example.profile;
-
+package com.example.profile.fragments;
 
 import android.os.Bundle;
 
@@ -13,25 +12,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.example.profile.LanguagesAdapter;
+import com.example.profile.LanguagesModel;
+import com.example.profile.OnItemClickListener;
+import com.example.profile.R;
+import com.example.profile.SercerProfile;
+import com.example.profile.Server;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ListFragment#newInstance} factory method to
+ * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListFragment extends Fragment {
+public class ProfileFragment extends Fragment {
+
     RecyclerView recyclerView;
-    TextView title;
-    ImageView image;
-    LanguagesAdapter adapter;
-    LanguagesModel model;
+    ProfileAdapter adapter;
     private List<LanguagesModel> list = new ArrayList<>();
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -39,7 +43,7 @@ public class ListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ListFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -49,11 +53,11 @@ public class ListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListFragment.
+     * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListFragment newInstance(String param1, String param2) {
-        ListFragment fragment = new ListFragment();
+    public static ProfileFragment newInstance(String param1, String param2) {
+        ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,30 +72,27 @@ public class ListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         return inflater.inflate(R.layout.fragment_list, container, false);
-
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.rv);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        list = Server.getList();
-        adapter = new LanguagesAdapter(list,requireContext());
-        //adapter = new LanguagesAdapter(Server.getList(), requireContext());
+        list = SercerProfile.getBiography();
+        adapter = new ProfileAdapter(list,requireContext());
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container_desc,DescriptionFragment.newInstance(list.get(position).getTitle(),list.get(position).getDescription()));
+                transaction.replace(R.id.container_main, LegendsFragment.newInstance(list.get(position).getTitle(),list.get(position).getDescription()));
                 transaction.addToBackStack("DescriptionFragment");
                 transaction.commit();
 

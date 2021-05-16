@@ -1,8 +1,6 @@
-package com.example.profile;
+package com.example.profile.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.profile.LanguagesModel;
+import com.example.profile.OnItemClickListener;
+import com.example.profile.R;
 
 import java.util.List;
 
-public class LanguagesAdapter extends RecyclerView.Adapter <LanguagesAdapter.LanguagesViewHolder> {
+public class ProfileAdapter extends RecyclerView.Adapter <ProfileAdapter.ProfileViewHolder> {
 
     private OnItemClickListener onItemClickListener;
 
@@ -29,25 +28,24 @@ public class LanguagesAdapter extends RecyclerView.Adapter <LanguagesAdapter.Lan
     LayoutInflater inflater;
     Context context;
 
-    public  LanguagesAdapter( List<LanguagesModel> list, Context context){
+    public ProfileAdapter(List<LanguagesModel> list, Context context){
         this.list = list;
-        this.context = context;
         this.inflater = LayoutInflater.from(context);
-
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public LanguagesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_task, parent, false);
-        return new LanguagesViewHolder(view);
+        return new ProfileViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LanguagesViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
         holder.txtTitle.setText(list.get(position).getTitle());
         holder.image.setImageResource(list.get(position).getImage());
-       holder.bind(list.get(position));
+        holder.bind(list.get(position));
     }
 
     @Override
@@ -55,14 +53,14 @@ public class LanguagesAdapter extends RecyclerView.Adapter <LanguagesAdapter.Lan
         return list.size();
     }
 
-    public class LanguagesViewHolder extends RecyclerView.ViewHolder{
+    public class ProfileViewHolder extends RecyclerView.ViewHolder{
+
         TextView txtTitle;
         ImageView image;
-        public LanguagesViewHolder(@NonNull View itemView) {
+        public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txt_title);
             image = itemView.findViewById(R.id.image_jpg);
-
         }
 
         public void bind(LanguagesModel languagesModel) {
